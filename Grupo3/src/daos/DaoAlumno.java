@@ -15,7 +15,7 @@ import model.Telefono;
 public class DaoAlumno {
 
 	@SuppressWarnings("resource")
-	public ArrayList<Alumno> getAlumnos(Curso curso, String nombre){
+	public ArrayList<Alumno> getAlumnos(String curso, String nombre){
 		ResultSet rs;
 		ResultSet rt;
 		ResultSet re;
@@ -28,7 +28,7 @@ public class DaoAlumno {
 		Statement st;
 		try {
 			st = con.createStatement();
-			String ordenSql = "select * from alumno where nombre like '%"+nombre+"%' and curso like '%"+curso.getCurso()+"%'";
+			String ordenSql = "select * from alumno where nombre like '%"+nombre+"%' and curso like '%"+curso+"%'";
 			rs = st.executeQuery(ordenSql);
 
 			while (rs.next()) {	
