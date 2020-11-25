@@ -35,6 +35,12 @@ public class Controller extends HttpServlet {
 		RequestDispatcher dispatcher;
 		if (op.equals("inicio")) {
 			
+			ArrayList<Alumno> listaalumnos = new DaoAlumno().getAlumnos();
+			
+			session.setAttribute("listaalumnos", listaalumnos);
+			dispatcher = request.getRequestDispatcher("home.jsp");
+			dispatcher.forward(request, response);
+			
 		}else if (op.equals("traeralumnos")) {
 			String curso = String.valueOf(request.getParameter("curso"));
 			ArrayList<Alumno> listaalumnos = new DaoAlumno().getAlumnos(curso);
