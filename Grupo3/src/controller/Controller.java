@@ -33,16 +33,41 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession();
 		String op = request.getParameter("op");
 		RequestDispatcher dispatcher;
+
+		DaoAlumno daoalumno;
+		ArrayList<Alumno> listaalumnos;
+		Alumno alumno;
+		String curso;
+		String nombre;
+		String dni;
+
 		if (op.equals("inicio")) {
 			
 		}else if (op.equals("traeralumnos")) {
-			String curso = String.valueOf(request.getParameter("curso"));
-			ArrayList<Alumno> listaalumnos = new DaoAlumno().getAlumnos(curso);
+			//pedir curso y contenido de la barra del buscador
+			curso = request.getParameter("curso");
+			nombre = request.getParameter("nombre");
+			//lista de alumnos
+			listaalumnos = daoalumno.getAlumnos(curso, nombre);
 			request.setAttribute("listaalumnos", listaalumnos);
-			
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 			
+		}else if(op.equals("addalumno")){
+			//dni, nombre y curso rellenado
+			dni = request.getParameter("dni");
+			nombre = request.getParameter("nombre");
+			curso = request.getParameter("curso");
+			//añadirlo al objeto alumno
+			alumno.setAttribute("dni");
+			alumno.setAttribute("nombre");
+			alumno.setAttribute("curso");
+			//añadir alumno a la lista y volver a pedir la lista de alumnos
+			daoalumno.insertaAlumno(alumno);
+			listaalumnos = daoalumno.getAlumnos(curso, nombre);
+			request.setAttribute("listaalumnos", listaalumnos);
+			dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
