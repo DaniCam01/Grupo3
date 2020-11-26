@@ -1,27 +1,33 @@
 package model;
 
 public class Telefono {
-	private String telefono;
-
-	public String getTelefono() {
-		return telefono;
+	private String tlf;
+	private String dni;
+	public String getTlf() {
+		return tlf;
 	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setTlf(String telefono) {
+		this.tlf = telefono;
 	}
-
-	public Telefono(String telefono) {
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public Telefono(String telefono, String dni) {
 		super();
-		this.telefono = telefono;
+		this.tlf = telefono;
+		this.dni = dni;
 	}
 	public Telefono() {
 		super();
 	}
-
 	@Override
 	public String toString() {
-		return "Telefono [telefono=" + telefono + "]";
+		return "Telefono [telefono=" + tlf + ", dni=" + dni + "]";
 	}
+	
+	
 	
 }
