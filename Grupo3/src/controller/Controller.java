@@ -110,10 +110,10 @@ public class Controller extends HttpServlet {
 			dispatcher.forward(request, response); 
 			
 		}else if(op.equals("addtelefono")){
-                        curso = request.getParameter("curso"); 
+            curso = request.getParameter("curso"); 
 			nombre = request.getParameter("nombre");
 			//rellenar Telefono 
-			telefono = request.getParameter("telefono");// En DaosTelefono algunas veces en vez de "telefono" se usa "tlef" por lo que no sé si aquí tengo que poner "tlf" aquí o seguir con "telefono"
+			telefono = request.getParameter("tlf");
 			dni = request.getParameter("dni"); 
 			//añadirlo al objeto telefono
 			objTelefono.setDni(dni);
@@ -144,14 +144,12 @@ public class Controller extends HttpServlet {
 			dispatcher.forward(request, response); 
 			
 		}else if(op.equals("deletealumno")){
-			//dni, nombre y curso rellenado 
-			dni = request.getParameter("dni"); 
-			nombre = request.getParameter("nombre"); //no sé si hacen también falta nombre y curso, yo por si acaso los pongo tambien
+			nombre = request.getParameter("nombre"); 
 			curso = request.getParameter("curso"); 
+			//dni del alumno a borrar
+			dni = request.getParameter("dni"); 
 			//add al objeto alumno 
 			alumno.setDni(dni);
-			alumno.setNombre(nombre);
-			alumno.setCurso(curso);
 			//Borrar alumno de lista y pedir lista 
 			exito = daoalumno.borraAlumno(alumno);
 			
@@ -163,7 +161,24 @@ public class Controller extends HttpServlet {
 			}
 			
 		}else if(op.equals("deletetelefono")){
+			curso = request.getParameter("curso"); 
+			nombre = request.getParameter("nombre");
+			//telefono a borrar
+			telefono = request.getParameter("tlf");
+			dni = request.getParameter("dni");
+			//objeto
+			objTelefono.setDni(dni);
+			objTelefono.setTelefono(telefono);
+			//borrar y pedir lista
+			exito = daotelefono.borraTelefono(objTelefono);
 			
+			if(exito!=-1){
+				listaalumnos = daoalumno.getAlumnos(curso, nombre); 
+				request.setAttribute("listaalumnos", listaalumnos); 
+				dispatcher = request.getRequestDispatcher("index.jsp"); 
+				dispatcher.forward(request, response); 
+			}
+
 		}else if(op.equals("deleteemail")){
 			curso = request.getParameter("curso"); 
 			nombre = request.getParameter("nombre");
@@ -181,7 +196,7 @@ public class Controller extends HttpServlet {
 				request.setAttribute("listaalumnos", listaalumnos); 
 				dispatcher = request.getRequestDispatcher("index.jsp"); 
 				dispatcher.forward(request, response); 
-			}}
+			}
 		}
 
 
