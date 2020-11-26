@@ -35,18 +35,26 @@ public class Controller extends HttpServlet {
 
 		DaoAlumno daoalumno; 
 		DaoCurso daocurso; 
+		DaoEmail daoemail;
 		ArrayList<Alumno> listaalumnos; 
 		ArrayList<Curso> listacursos; 
 		Alumno alumno; 
-		Curso objCurso; 
+		Curso objCurso;
+		Email objEmail; 
 		String curso; 
 		String nombre; 
-		String dni; 
+		String dni;
+		String email; 
+		Int exito;
  
-		if (op.equals("inicio")) { 
-			ArrayList<Alumno> listaalumnos = new DaoAlumno().getAlumnos();
-			
+		if (op.equals("inicio")) {
+			curso = request.getParameter("curso"); 
+			nombre = request.getParameter("nombre"); 
+			ArrayList<Alumno> listaalumnos = new DaoAlumno().getAlumnos(curso, nombre);
+			ArrayList<Curso> listacursos= new DaoCurso.getCursos();
+
 			session.setAttribute("listaalumnos", listaalumnos);
+			session.setAttribute("listacursos", listacursos);
 			dispatcher = request.getRequestDispatcher("home.jsp");
 			dispatcher.forward(request, response);
 			 
@@ -90,13 +98,43 @@ public class Controller extends HttpServlet {
 		}else if(op.equals("addtelefono")){
 
 		}else if(op.equals("addemail")){
-			
+			curso = request.getParameter("curso"); 
+			nombre = request.getParameter("nombre");
+			//email rellenado 
+			email = request.getParameter("email");
+			dni = request.getParameter("dni"); 
+			//añadirlo al objeto email
+			objEmail.setDni(dni);
+			objEmail.setEmail(email);
+			//insertar email y volver a pedir la lista 
+			daoemail.insertaEmail(objEmail);
+
+			listaalumnos = daoalumno.getAlumnos(curso, nombre); 
+			request.setAttribute("listacursos", listacursos); 
+			dispatcher = request.getRequestDispatcher("index.jsp"); 
+			dispatcher.forward(request, response); 
 		}else if(op.equals("deletealumno")){
 			
 		}else if(op.equals("deletetelefono")){
 			
 		}else if(op.equals("deleteemail")){
-			
+			urso = request.getParameter("curso"); 
+			nombre = request.getParameter("nombre");
+			//email a borrar
+			email = request.getParameter("email");
+			dni = request.getParameter("dni"); 
+			//añadirlo al objeto email
+			objEmail.setDni(dni);
+			objEmail.setEmail(email);
+			//borrar y pedir la lista
+			exito = daoemail.borraEmail(objEmail);
+
+			if(exito!=-1){
+				listaalumnos = daoalumno.getAlumnos(curso, nombre); 
+				request.setAttribute("listacursos", listacursos); 
+				dispatcher = request.getRequestDispatcher("index.jsp"); 
+				dispatcher.forward(request, response); 
+			}
 		}
 
 
