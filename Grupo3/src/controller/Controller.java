@@ -108,6 +108,7 @@ public class Controller extends HttpServlet {
 			request.setAttribute("listacursos", listacursos); 
 			dispatcher = request.getRequestDispatcher("index.jsp"); 
 			dispatcher.forward(request, response); 
+			
 		}else if(op.equals("addtelefono")){
                         curso = request.getParameter("curso"); 
 			nombre = request.getParameter("nombre");
