@@ -112,7 +112,7 @@ public class Controller extends HttpServlet {
                         curso = request.getParameter("curso"); 
 			nombre = request.getParameter("nombre");
 			//rellenar Telefono 
-			telefono = request.getParameter("telefono");// no sé si se necesita telefono o tlf
+			telefono = request.getParameter("telefono");// En DaosTelefono algunas veces en vez de "telefono" se usa "tlef" por lo que no sé si aquí tengo que poner "tlf" aquí o seguir con "telefono"
 			dni = request.getParameter("dni"); 
 			//añadirlo al objeto telefono
 			objTelefono.setDni(dni);
