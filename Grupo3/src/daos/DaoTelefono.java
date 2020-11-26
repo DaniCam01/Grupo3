@@ -26,8 +26,8 @@ public class DaoTelefono {
 
 			while (rs.next()) {
 				Telefono telefono = new Telefono();
-				telefono.setTlf(rs.getString("tlf"));
 				telefono.setDni(rs.getString("dni"));
+				telefono.setTlf(rs.getString("tlf"));
 
 				lista.add(telefono);
 			}

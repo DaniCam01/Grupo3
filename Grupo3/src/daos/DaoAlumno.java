@@ -17,7 +17,7 @@ public class DaoAlumno {
 
 	@SuppressWarnings("resource")
 	public ArrayList<Alumno> getAlumnos(String curso, String nombre){
-		ResultSet rs, re, rt;
+		ResultSet rs, rse, rst;
 		ArrayList<Alumno> lista = new ArrayList<Alumno>();
 		ArrayList<Telefono> listaTelefonos;
 		ArrayList<Email> listaEmails;
@@ -32,36 +32,40 @@ public class DaoAlumno {
 
 			while (rs.next()) {	
 				Alumno alumno = new Alumno();
+				listaTelefonos = new ArrayList<Telefono>();
+				listaEmails = new ArrayList<Email>();
+				
 				alumno.setDni(rs.getString("dni"));
 				alumno.setNombre(rs.getString("nombre"));
-				cursoAlumno = new Curso(rs.getString("curso"));
-				alumno.setCurso(cursoAlumno);
+				alumno.setCurso(new Curso(rs.getString("curso")));
+				
+				
 				//Telefonos
-				listaTelefonos = new ArrayList<Telefono>();
 				stt = con.createStatement();
 				ordenSql = "select * from telefono where dni = '"+alumno.getDni()+"'";
-				rt = st.executeQuery(ordenSql);
-				while (rt.next()) {
+				rst = st.executeQuery(ordenSql);
+				while (rst.next()) {
 					Telefono telefono = new Telefono();
 					telefono.setDni(alumno.getDni());
 					telefono.setTlf(rs.getNString("tlf"));
 					listaTelefonos.add(telefono);
 				}
-				rt.close();
+				rst.close();
 				stt.close();
 				alumno.setTelefonos(listaTelefonos);
 				
-				listaEmails = new ArrayList<Email>();
+				
+				//Emails
 				ste = con.createStatement();
 				ordenSql = "select * from emilio where dni = '"+alumno.getDni()+"'";
-				re = st.executeQuery(ordenSql);
-				while (rt.next()) {
+				rse = st.executeQuery(ordenSql);
+				while (rst.next()) {
 					Email email = new Email();
 					email.setDni(alumno.getDni());
 					email.setEmail(rs.getNString("email"));
 					listaEmails.add(email);
 				}
-				re.close();
+				rse.close();
 				ste.close();
 				alumno.setEmails(listaEmails);
 				

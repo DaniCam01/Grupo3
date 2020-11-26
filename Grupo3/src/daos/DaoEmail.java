@@ -26,9 +26,9 @@ public class DaoEmail {
 
 			while (rs.next()) {
 				Email email = new Email();
-				email.setEmail(rs.getString("email"));
 				email.setDni(rs.getString("dni"));
-
+				email.setEmail(rs.getString("email"));
+				
 				lista.add(email);
 			}
 			rs.close();
