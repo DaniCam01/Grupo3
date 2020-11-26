@@ -87,7 +87,17 @@ public class Controller extends HttpServlet {
 			request.setAttribute("listacursos", listacursos); 
 			dispatcher = request.getRequestDispatcher("index.jsp"); 
 			dispatcher.forward(request, response); 
-		} 
+		}else if(op.equals("addtelefono")){
+
+		}else if(op.equals("addemail")){
+			
+		}else if(op.equals("deletealumno")){
+			
+		}else if(op.equals("deletetelefono")){
+			
+		}else if(op.equals("deleteemail")){
+			
+		}
 
 
 	/**
