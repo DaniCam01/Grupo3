@@ -32,24 +32,6 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession();
 		String op = request.getParameter("op");
 		RequestDispatcher dispatcher;
-		if (op.equals("inicio")) {
-			
-			ArrayList<Alumno> listaalumnos = new DaoAlumno().getAlumnos();
-			
-			session.setAttribute("listaalumnos", listaalumnos);
-			dispatcher = request.getRequestDispatcher("home.jsp");
-			dispatcher.forward(request, response);
-			
-		}else if (op.equals("traeralumnos")) {
-			String curso = String.valueOf(request.getParameter("curso"));
-			ArrayList<Alumno> listaalumnos = new DaoAlumno().getAlumnos(curso);
-			request.setAttribute("listaalumnos", listaalumnos);
-			
-			dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
-			
-		}
-	}
 
 		DaoAlumno daoalumno; 
 		DaoCurso daocurso; 
@@ -62,6 +44,11 @@ public class Controller extends HttpServlet {
 		String dni; 
  
 		if (op.equals("inicio")) { 
+			ArrayList<Alumno> listaalumnos = new DaoAlumno().getAlumnos();
+			
+			session.setAttribute("listaalumnos", listaalumnos);
+			dispatcher = request.getRequestDispatcher("home.jsp");
+			dispatcher.forward(request, response);
 			 
 		}else if (op.equals("traeralumnos")) { 
 			//pedir curso y contenido de la barra del buscador 
@@ -79,9 +66,9 @@ public class Controller extends HttpServlet {
 			nombre = request.getParameter("nombre"); 
 			curso = request.getParameter("curso"); 
 			//añadirlo al objeto alumno 
-			alumno.setAttribute("dni"); 
-			alumno.setAttribute("nombre"); 
-			alumno.setAttribute("curso"); 
+			alumno.setDni(dni);
+			alumno.setNombre(nombre);
+			alumno.setCurso(curso);
 			//añadir alumno a la lista y volver a pedir la lista de alumnos 
 			daoalumno.insertaAlumno(alumno); 
 			listaalumnos = daoalumno.getAlumnos(curso, nombre); 
@@ -93,7 +80,7 @@ public class Controller extends HttpServlet {
 			//curso rellenado 
 			curso = request.getParameter("curso"); 
 			//añadirlo al objeto curso 
-			objCurso.setAttribute("curso"); 
+			objCurso.setCurso(curso);
 			//insertar curso y volver a pedir la lista de cursos 
 			daocurso.insertaCurso(objCurso); 
 			listacursos = daocurso.getCursos(); 
