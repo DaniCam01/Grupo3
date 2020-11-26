@@ -1,3 +1,7 @@
+<%@page import="model.Alumno"%>
+<%@page import="model.Curso"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.lang.reflect.Array"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!doctype html>
@@ -13,7 +17,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-
+<%
+  	ArrayList<Curso> listacursos = (ArrayList<Curso>) session.getAttribute("listacursos");
+%>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark px-5 py-3">
@@ -32,13 +38,16 @@
                 
                 <li class="nav-item">
                     <div class="form-group px-5 mt-2">
-                        <form action="Controller?op=dameestaciones" method="POST" name="flinea">
+                        <form action="Controller?op=traeralumnos" method="POST" name="fcurso">
                               <div class="form-group row">
-                                <select class="form-control" name="combolinea" id="combolinea" onchange="this.form.submit()">
-                                  <option value="" readonly>SELECCIONE CURSO</option>                               
-                                      <option value="<%=milinea.getNlinea()%>">Hola</option>
+                                <select class="form-control" name="combocurso" id="combocurso" onchange="this.form.submit()">
+                                  <option value="" readonly>SELECCIONE CURSO</option>  
+                                  <% for (Curso curso:listacursos){%>                             
+                                      <option "<%=curso.getCurso()%>"><%=curso.getCurso()%></option>
+                                  <%} %>
                                 </select>
                             </div>
+                             <input type="hidden" name="op" value="traeralumnos">
                         </form>
                     </div>
                 </li> 
@@ -57,7 +66,10 @@
     
 
     <div class="row">
-
+		<% ArrayList<Alumno> listaalumnos = (ArrayList<Alumno>)request.getAttribute("listaalumnos"); 
+        if (listaalumnos!=null) {
+        	for (Alumno alumno:listaalumnos){
+        %>
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
             <div class="card bg-dark px-1 py-1">
                 
@@ -87,93 +99,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-            <div class="card bg-dark px-1 py-1">
-                
-                <img class="card-img-top px-4 py-1 bg-light" src="img/icono.png" alt="">
-                <div class="col text-right">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                        src="img/basura.png" alt=""></button>
-                    <button type="button" class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
-                        src="img/editar.png" alt=""></button>
-                </div>
-                <div class="row card-body text-light">
-                    <div class="col-12">
-                        <h4 class="card-title" id="nombre">Pedro Garcia Nobillo</h4>
-                        Mail:<button class="btn openBtn" data-toggle="modal" data-target="#ModalAñadirMail"><img class=""
-                            src="img/botonA.png" alt=""></button>
-                        <p class="card-text">pedrogn@gmail.com<button  class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                            src="img/basuraA.png" alt=""></button>
-                        </p>
-                        Telefono:<button class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
-                            src="img/botonA.png" alt=""></button>
-                        <p class="card-text">654321698<button  class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                            src="img/basuraA.png" alt=""></button></p>
-                        
-                        <p class="card-text">Curso: 2019-2021</p>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-            <div class="card bg-dark px-1 py-1">
-                
-                <img class="card-img-top px-4 py-1 bg-light" src="img/icono.png" alt="">
-                <div class="col text-right">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                        src="img/basura.png" alt=""></button>
-                    <button type="button" class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
-                        src="img/editar.png" alt=""></button>
-                </div>
-                <div class="row card-body text-light">
-                    <div class="col-12">
-                        <h4 class="card-title" id="nombre">Pedro Garcia Nobillo</h4>
-                        Mail:<button class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
-                            src="img/botonA.png" alt=""></button>
-                        <p class="card-text">pedrogn@gmail.com<button  class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                            src="img/basuraA.png" alt=""></button>
-                        </p>
-                        Telefono:<button class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
-                            src="img/botonA.png" alt=""></button>
-                        <p class="card-text">654321698<button  class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                            src="img/basuraA.png" alt=""></button></p>
-                        
-                        <p class="card-text">Curso: 2019-2021</p>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-            <div class="card bg-dark px-1 py-1">
-                
-                <img class="card-img-top px-4 py-1 bg-light" src="img/icono.png" alt="">
-                <div class="col text-right">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                        src="img/basura.png" alt=""></button>
-                    <button type="button" class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
-                        src="img/editar.png" alt=""></button>
-                </div>
-                <div class="row card-body text-light">
-                    <div class="col-12">
-                        <h4 class="card-title" id="nombre">Pedro Garcia Nobillo</h4>
-                        Mail:<button class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
-                            src="img/botonA.png" alt=""></button>
-                        <p class="card-text">pedrogn@gmail.com<button  class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                            src="img/basuraA.png" alt=""></button>
-                        </p>
-                        Telefono:<button class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
-                            src="img/botonA.png" alt=""></button>
-                        <p class="card-text">654321698<button  class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                            src="img/basuraA.png" alt=""></button></p>
-                        
-                        <p class="card-text">Curso: 2019-2021</p>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
+        <%}
+        } %>
         
 
     </div>
