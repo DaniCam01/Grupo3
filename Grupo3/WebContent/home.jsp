@@ -33,7 +33,7 @@
             </div>
         </div>
     </header>
-    <div class="container " style="width: 1024px">
+    <div class="container" style="width: 1024px">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm rounded-lg px-5 py-3" style="background-color: #005D9D;">
             <button class="navbar-toggler d-lg-none " type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -49,19 +49,24 @@
                     </li>
                     
                     <li class="nav-item">
+                    
+                    	
                         <div class="form-group px-5 mt-2">
-                            <form action="Controller?op=traeralumnos" method="POST" name="fcurso">
+                            <form action="Controller" method="POST">
                                   <div class="form-group row">
-                                    <select class="form-control" name="combocurso" id="combocurso" onchange="this.form.submit()">
+                                    <select class="form-control" name="curso" id="curso" onchange="this.form.submit()">
                                       <option value="" readonly>SELECCIONE CURSO</option>  
-                                         <% for (Curso curso:listacursos){%>                             
-                                            <option "<%=curso.getCurso()%>"><%=curso.getCurso()%></option>
-                                        <%} %>
+                                         <% for (Curso curso:listacursos){%>
+		                    			<option value="<%=curso.getCurso() %>"><%=curso.getCurso() %></option>
+		                    			<%}
+		                   				%> 
                                     </select>
                                 </div>
                                  <input type="hidden" name="op" value="traeralumnos">
                             </form>
                         </div>
+                        
+                        
                     </li> 
                     <button type="button" class="btn" data-toggle="modal" data-target="#ModalAñadirCurso"><img class=""
                         src="img/add.png" alt=""></button>        
@@ -74,12 +79,13 @@
                 src="img/adduser.png" alt=""></button>
           </div>
         
-    
+    	<% ArrayList<Alumno> listaalumnos = (ArrayList<Alumno>)request.getAttribute("listaalumnos"); 
+        	if (listaalumnos!=null) {
+        %>
         <div class="row">
-            <% ArrayList<Alumno> listaalumnos = (ArrayList<Alumno>)request.getAttribute("listaalumnos"); 
-                if (listaalumnos!=null) {
-                    for (Alumno alumno:listaalumnos){
-            %>
+            <% 
+        		for (Alumno alumno:listaalumnos){
+        	%>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
                 <div class="card px-1 py-1 border-0" style="background-color: #8eb0d6;">
                     
@@ -110,9 +116,10 @@
                 </div>
                 
             </div>
-            <%}
-            } %>
-
+            <%}%>
+            
+	</div>
+	<%} %>
     <footer>
         <div class="row mx-auto mt-4 text-white" style="width: 1024px; background-color: #005D9D;">
             <div class="col-md-4 py-4 px-4 h3">
