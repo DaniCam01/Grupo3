@@ -22,88 +22,116 @@
 %>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark px-5 py-3">
-        <button class="navbar-toggler d-lg-none " type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="collapse navbar-collapse mx-5" id="collapsibleNavId">
-            <ul class="navbar-nav">  
-                <li>
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2 mx-5 px-5 mt-2" type="text" placeholder="Search">
-                    </form>
-                </li>
-                
-                <li class="nav-item">
-                    <div class="form-group px-5 mt-2">
-                        <form action="Controller?op=traeralumnos" method="POST" name="fcurso">
-                              <div class="form-group row">
-                                <select class="form-control" name="combocurso" id="combocurso" onchange="this.form.submit()">
-                                  <option value="" readonly>SELECCIONE CURSO</option>  
-                                  <% for (Curso curso:listacursos){%>                             
-                                      <option "<%=curso.getCurso()%>"><%=curso.getCurso()%></option>
-                                  <%} %>
-                                </select>
-                            </div>
-                             <input type="hidden" name="op" value="traeralumnos">
-                        </form>
-                    </div>
-                </li> 
-                <button type="button" class="btn" data-toggle="modal" data-target="#ModalAñadirCurso"><img class=""
-                    src="img/boton.png" alt=""></button>        
-            </ul>                      
+	<header>
+        <div class="row mx-auto" style="width: 1024px">
+            <div class="col-md-6 py-4 px-4 h3">
+                <img src="img/header.png" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="col-md-6 my-auto text-center h1" style="color: #009BDE;">
+                AGENDA          
+            </div>
         </div>
-        <img src="img/logo.png" class="mx-5"alt="">
-    </nav>
-    <div class="col text-center">
-        <button type="button" class="btn" data-toggle="modal" data-target="#ModalAñadirAlumno"><img class=""
-            src="img/boton.png" alt=""></button>
-      </div>
+    </header>
+    <div class="container " style="width: 1024px">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm rounded-lg px-5 py-3" style="background-color: #005D9D;">
+            <button class="navbar-toggler d-lg-none " type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse mx-5" id="collapsibleNavId">
+                <ul class="navbar-nav">  
+                    <li>
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2 mx-5 px-5 mt-2" type="text" placeholder="Search">
+                        </form>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <div class="form-group px-5 mt-2">
+                            <form action="Controller?op=traeralumnos" method="POST" name="fcurso">
+                                  <div class="form-group row">
+                                    <select class="form-control" name="combocurso" id="combocurso" onchange="this.form.submit()">
+                                      <option value="" readonly>SELECCIONE CURSO</option>  
+                                         <% for (Curso curso:listacursos){%>                             
+                                            <option "<%=curso.getCurso()%>"><%=curso.getCurso()%></option>
+                                        <%} %>
+                                    </select>
+                                </div>
+                                 <input type="hidden" name="op" value="traeralumnos">
+                            </form>
+                        </div>
+                    </li> 
+                    <button type="button" class="btn" data-toggle="modal" data-target="#ModalAñadirCurso"><img class=""
+                        src="img/add.png" alt=""></button>        
+                </ul>                      
+            </div>
+            <img src="img/logo.png" class="mx-5"alt="">
+        </nav>
+        <div class="col text-center">
+            <button type="button" class="btn" data-toggle="modal" data-target="#ModalAñadirAlumno"><img class="w-75"
+                src="img/adduser.png" alt=""></button>
+          </div>
+        
     
-    
-    
-
-    <div class="row">
-		<% ArrayList<Alumno> listaalumnos = (ArrayList<Alumno>)request.getAttribute("listaalumnos"); 
-        if (listaalumnos!=null) {
-        	for (Alumno alumno:listaalumnos){
-        %>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-            <div class="card bg-dark px-1 py-1">
-                
-                <img class="card-img-top px-4 py-1 bg-light" src="img/icono.png" alt="">
-                <div class="col text-right">
-                    <button type="button" class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
-                        src="img/basura.png" alt=""></button>
-                    <button type="button" class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
-                        src="img/editar.png" alt=""></button>
-                </div>
-                <div class="row card-body text-light">
-                    <div class="col-12">
-                        <h4 class="card-title" id="nombre">Pedro Garcia Nobillo</h4>
-                        Mail:<button class="btn openBtn" data-toggle="modal" data-target="#ModalAñadirMail"><img class=""
-                            src="img/botonA.png" alt=""></button>
-                        <p class="card-text">pedrogn@gmail.com<button  class="btn" data-toggle="modal" data-target="#ModalEliminarMail"><img class=""
-                            src="img/basuraA.png" alt=""></button>
-                        </p>
-                        Telefono:<button class="btn openBtn" data-toggle="modal" data-target="#ModalAñadirTelefono"><img class=""
-                            src="img/botonA.png" alt=""></button>
-                        <p class="card-text">654321698<button  class="btn" data-toggle="modal" data-target="#ModalEliminarTelefono"><img class=""
-                            src="img/basuraA.png" alt=""></button></p>
+        <div class="row">
+            <% ArrayList<Alumno> listaalumnos = (ArrayList<Alumno>)request.getAttribute("listaalumnos"); 
+                if (listaalumnos!=null) {
+                    for (Alumno alumno:listaalumnos){
+            %>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
+                <div class="card px-1 py-1 border-0" style="background-color: #8eb0d6;">
+                    
+                    
+                    <div class="col text-right">
+                        <button type="button" class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
+                            src="img/edit.png" alt=""></button>
+                        <button type="button" class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
+                            src="img/deluser.png" alt=""></button>
+                    </div>
+                    <div class="row card-body text-light">
+                        <div class="col-12">
+                            <h4 class="card-title" id="nombre">Pedro Garcia Nobillo</h4>
+                            Mail:<button class="btn openBtn" data-toggle="modal" data-target="#ModalAñadirMail"><img class=""
+                                src="img/addemail.png" alt=""></button>
+                            <p class="card-text">pedrogn@gmail.com<button  class="btn" data-toggle="modal" data-target="#ModalEliminarMail"><img class=""
+                                src="img/delemail.png" alt=""></button>
+                            </p>
+                            Telefono:<button class="btn openBtn" data-toggle="modal" data-target="#ModalAñadirTelefono"><img class=""
+                                src="img/addphone.png" alt=""></button>
+                            <p class="card-text">654321698<button  class="btn" data-toggle="modal" data-target="#ModalEliminarTelefono"><img class=""
+                                src="img/delphone.png" alt=""></button></p>
+                            
+                            <p class="card-text">Curso: 2019-2021</p>
+                        </div>
                         
-                        <p class="card-text">Curso: 2019-2021</p>
                     </div>
                     
                 </div>
+                
+            </div>
+            <%}
+            } %>
+
+    <footer>
+        <div class="row mx-auto mt-4 text-white" style="width: 1024px; background-color: #005D9D;">
+            <div class="col-md-4 py-4 px-4 h3">
+                S2DAM <br/>
+                GRUPO 3
+            </div>
+            <div class="col-md-4 py-3 px-4 font-weight-light">
+                Fernando Bastanchuri <br>
+                Víctor Bravo <br>
+                Daniel Camaño <br>
+                Jorge Cordero             
+            </div>
+            <div class="col-md-4 py-3 px-4 font-weight-light">
+                Aroa García <br>
+                Sara Gil <br>
+                Juan Gómez
             </div>
         </div>
-        <%}
-        } %>
-        
-
-    </div>
+    </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
