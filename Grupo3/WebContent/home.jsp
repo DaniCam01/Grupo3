@@ -52,7 +52,7 @@
                     
                     	
                         <div class="form-group px-5 mt-2">
-                            <form action="Controller" method="POST">
+                            <form action="Controller?op=traeralumnos" method="POST">
                                   <div class="form-group row">
                                     <select class="form-control" name="curso" id="curso" onchange="this.form.submit()">
                                       <option value="" readonly>SELECCIONE CURSO</option>  
@@ -62,7 +62,7 @@
 		                   				%> 
                                     </select>
                                 </div>
-                                 <input type="hidden" name="op" value="traeralumnos">
+                                 <input type="hidden" name="op" value="Controller?op=traeralumnos">
                             </form>
                         </div>
                         
@@ -81,10 +81,13 @@
         
     	<% ArrayList<Alumno> listaalumnos = (ArrayList<Alumno>)request.getAttribute("listaalumnos"); 
         	if (listaalumnos!=null) {
+        		System.out.println("hola la lista no es null");
+        		System.out.println(listaalumnos);
         %>
         <div class="row">
             <% 
         		for (Alumno alumno:listaalumnos){
+        			 System.out.println("hola");
         	%>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
                 <div class="card px-1 py-1 border-0" style="background-color: #8eb0d6;">

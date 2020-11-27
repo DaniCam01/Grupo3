@@ -59,7 +59,7 @@ public class DaoAlumno {
 				ste = con.createStatement();
 				ordenSql = "select * from emilio where dni = '"+alumno.getDni()+"'";
 				rse = st.executeQuery(ordenSql);
-				while (rst.next()) {
+				while (rse.next()) {
 					Email email = new Email();
 					email.setDni(alumno.getDni());
 					email.setEmail(rs.getNString("email"));
@@ -76,7 +76,7 @@ public class DaoAlumno {
 			con.close();
 		} catch (SQLException e) {
 			System.out
-					.println("Error al acceder a la BDs: " + e.getMessage());
+					.println("Error al acceder a la BDs Alumno: " + e.getMessage());
 		}
 		return lista;
 	}

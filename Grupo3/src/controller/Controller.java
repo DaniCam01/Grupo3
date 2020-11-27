@@ -59,7 +59,7 @@ public class Controller extends HttpServlet {
 		String telefono;
 		String email; 
 		int exito;
- 
+
 		if (op.equals("inicio")) {
 			listaalumnos = daoalumno.getAlumnos("%", "%");
 			listacursos= daocurso.getCursos();
