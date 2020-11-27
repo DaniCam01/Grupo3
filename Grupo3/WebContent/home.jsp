@@ -44,7 +44,7 @@
                 <ul class="navbar-nav">  
                     <li>
                         <form class="form-inline">
-                            <input class="form-control mr-sm-2 mx-5 px-5 mt-2" type="text" placeholder="Search">
+                            <input class="form-control mr-sm-2 mx-5 px-5 mt-2"  type="text" placeholder="Search">
                         </form>
                     </li>
                     
@@ -55,7 +55,8 @@
                             <form action="Controller?op=traeralumnos" method="POST">
                                   <div class="form-group row">
                                     <select class="form-control" name="curso" id="curso" onchange="this.form.submit()">
-                                      <option value="" readonly>SELECCIONE CURSO</option>  
+                                      <option value="%" readonly>SELECCIONE CURSO</option> 
+                                      <option value="%" >Todos</option>  
                                          <% for (Curso curso:listacursos){%>
 		                    			<option value="<%=curso.getCurso() %>"><%=curso.getCurso() %></option>
 		                    			<%}
@@ -81,12 +82,12 @@
         
     	<% ArrayList<Alumno> listaalumnos = (ArrayList<Alumno>)request.getAttribute("listaalumnos"); 
         	if (listaalumnos!=null) {
-        		System.out.println("hola la lista no es null");
+        		
         		System.out.println(listaalumnos);
         %>
         <div class="row">
             <% 
-        		for (Alumno alumno:listaalumnos){
+        		for (int i=0; i<listaalumnos.size(); i++){
         			 System.out.println("hola");
         	%>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">

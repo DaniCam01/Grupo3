@@ -47,7 +47,7 @@ public class DaoAlumno {
 				while (rst.next()) {
 					Telefono telefono = new Telefono();
 					telefono.setDni(alumno.getDni());
-					telefono.setTlf(rs.getNString("tlf"));
+					telefono.setTlf(rst.getNString("tlf"));
 					listaTelefonos.add(telefono);
 				}
 				rst.close();
@@ -62,7 +62,7 @@ public class DaoAlumno {
 				while (rse.next()) {
 					Email email = new Email();
 					email.setDni(alumno.getDni());
-					email.setEmail(rs.getNString("email"));
+					email.setEmail(rse.getNString("email"));
 					listaEmails.add(email);
 				}
 				rse.close();
