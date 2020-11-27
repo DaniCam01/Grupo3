@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
 <%
   	ArrayList<Curso> listacursos = (ArrayList<Curso>) session.getAttribute("listacursos");
 %>
@@ -81,7 +82,6 @@
             %>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
                 <div class="card px-1 py-1 border-0" style="background-color: #8eb0d6;">
-                    
                     
                     <div class="col text-right">
                         <button type="button" class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
