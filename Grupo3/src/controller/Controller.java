@@ -14,9 +14,11 @@ import javax.servlet.http.HttpSession;
 import daos.DaoAlumno;
 import daos.DaoCurso;
 import daos.DaoEmail;
+import daos.DaoTelefono;
 import model.Alumno;
 import model.Curso;
 import model.Email;
+import model.Telefono;
 
 /**
  * Servlet implementation class Controller
@@ -42,15 +44,18 @@ public class Controller extends HttpServlet {
 
 		DaoAlumno daoalumno = new DaoAlumno(); 
 		DaoCurso daocurso = new DaoCurso(); 
+		DaoTelefono daotelefono = new DaoTelefono(); 
 		DaoEmail daoemail = new DaoEmail();
 		ArrayList<Alumno> listaalumnos; 
 		ArrayList<Curso> listacursos; 
 		Alumno alumno = new Alumno(); 
 		Curso objCurso = new Curso();
+		Telefono objTelefono = new Telefono();
 		Email objEmail = new Email(); 
 		String curso; 
 		String nombre; 
 		String dni;
+		String telefono;
 		String email; 
 		int exito;
  
@@ -72,7 +77,7 @@ public class Controller extends HttpServlet {
 			//lista de alumnos 
 			listaalumnos = daoalumno.getAlumnos(curso, nombre); 
 			request.setAttribute("listaalumnos", listaalumnos); 
-			dispatcher = request.getRequestDispatcher("home.jsp"); 
+			dispatcher = request.getRequestDispatcher("index.jsp"); 
 			dispatcher.forward(request, response); 
 			 
 		}else if(op.equals("addalumno")){ 
@@ -88,7 +93,7 @@ public class Controller extends HttpServlet {
 			daoalumno.insertaAlumno(alumno); 
 			listaalumnos = daoalumno.getAlumnos(curso, nombre); 
 			request.setAttribute("listaalumnos", listaalumnos); 
-			dispatcher = request.getRequestDispatcher("home.jsp"); 
+			dispatcher = request.getRequestDispatcher("index.jsp"); 
 			dispatcher.forward(request, response); 
  
 		}else if(op.equals("addcurso")){ 
@@ -100,10 +105,26 @@ public class Controller extends HttpServlet {
 			daocurso.insertaCurso(objCurso); 
 			listacursos = daocurso.getCursos(); 
 			request.setAttribute("listacursos", listacursos); 
-			dispatcher = request.getRequestDispatcher("home.jsp"); 
+			dispatcher = request.getRequestDispatcher("index.jsp"); 
 			dispatcher.forward(request, response); 
+			
 		}else if(op.equals("addtelefono")){
+            curso = request.getParameter("curso"); 
+			nombre = request.getParameter("nombre");
+			//rellenar Telefono 
+			telefono = request.getParameter("tlf");
+			dni = request.getParameter("dni"); 
+			//añadirlo al objeto telefono
+			objTelefono.setDni(dni);
+			objTelefono.setTelefono(telefono);
+			//insertar telefono y volver a pedir la lista 
+			daotelefono.insertaTelefono(objTelefono);
 
+			listaalumnos = daoalumno.getAlumnos(curso, nombre); 
+			request.setAttribute("listacursos", listacursos); 
+			dispatcher = request.getRequestDispatcher("index.jsp"); 
+			dispatcher.forward(request, response); 
+                      
 		}else if(op.equals("addemail")){
 			curso = request.getParameter("curso"); 
 			nombre = request.getParameter("nombre");
@@ -118,12 +139,45 @@ public class Controller extends HttpServlet {
 
 			listaalumnos = daoalumno.getAlumnos(curso, nombre); 
 			request.setAttribute("listaalumnos", listaalumnos); 
-			dispatcher = request.getRequestDispatcher("home.jsp"); 
+			dispatcher = request.getRequestDispatcher("index.jsp"); 
 			dispatcher.forward(request, response); 
+			
 		}else if(op.equals("deletealumno")){
+			nombre = request.getParameter("nombre"); 
+			curso = request.getParameter("curso"); 
+			//dni del alumno a borrar
+			dni = request.getParameter("dni"); 
+			//add al objeto alumno 
+			alumno.setDni(dni);
+			//Borrar alumno de lista y pedir lista 
+			exito = daoalumno.borraAlumno(alumno);
+			
+			if(exito!=-1){
+				listaalumnos = daoalumno.getAlumnos(curso, nombre); 
+				request.setAttribute("listacursos", listacursos); 
+				dispatcher = request.getRequestDispatcher("index.jsp"); 
+				dispatcher.forward(request, response); 
+			}
 			
 		}else if(op.equals("deletetelefono")){
+			curso = request.getParameter("curso"); 
+			nombre = request.getParameter("nombre");
+			//telefono a borrar
+			telefono = request.getParameter("tlf");
+			dni = request.getParameter("dni");
+			//objeto
+			objTelefono.setDni(dni);
+			objTelefono.setTelefono(telefono);
+			//borrar y pedir lista
+			exito = daotelefono.borraTelefono(objTelefono);
 			
+			if(exito!=-1){
+				listaalumnos = daoalumno.getAlumnos(curso, nombre); 
+				request.setAttribute("listaalumnos", listaalumnos); 
+				dispatcher = request.getRequestDispatcher("index.jsp"); 
+				dispatcher.forward(request, response); 
+			}
+
 		}else if(op.equals("deleteemail")){
 			curso = request.getParameter("curso"); 
 			nombre = request.getParameter("nombre");
@@ -139,10 +193,11 @@ public class Controller extends HttpServlet {
 			if(exito!=-1){
 				listaalumnos = daoalumno.getAlumnos(curso, nombre); 
 				request.setAttribute("listaalumnos", listaalumnos); 
-				dispatcher = request.getRequestDispatcher("home.jsp"); 
+				dispatcher = request.getRequestDispatcher("index.jsp"); 
 				dispatcher.forward(request, response); 
-			}}
+			}
 		}
+	}
 
 
 	/**
