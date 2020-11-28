@@ -32,6 +32,7 @@ public class Controller extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
+	
     public Controller() {
         super();
     }
@@ -39,6 +40,8 @@ public class Controller extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String op = request.getParameter("op");
@@ -79,12 +82,12 @@ public class Controller extends HttpServlet {
 			request.setAttribute("listaalumnos", listaalumnos); 
 			dispatcher = request.getRequestDispatcher("home.jsp"); 
 			dispatcher.forward(request, response); 
-			 
+		 
 		}else if(op.equals("addalumno")){ 
 			//dni, nombre y curso rellenado 
-			dni = request.getParameter("dni"); 
-			nombre = request.getParameter("nombre"); 
-			curso = request.getParameter("curso"); 
+			dni = request.getParameter("dniAdd"); 
+			nombre = request.getParameter("nombreAdd"); 
+			curso = request.getParameter("cursoAdd"); 
 			//añadirlo al objeto alumno 
 			alumno.setDni(dni);
 			alumno.setNombre(nombre);
@@ -96,9 +99,9 @@ public class Controller extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("home.jsp"); 
 			dispatcher.forward(request, response); 
  
-		}/*else if(op.equals("addcurso")){ 
+		}else if(op.equals("addcurso")){ 
 			//curso rellenado 
-			curso = request.getParameter("curso"); 
+			curso = request.getParameter("cursoA"); 
 			//añadirlo al objeto curso 
 			objCurso.setCurso(curso);
 			//insertar curso y volver a pedir la lista de cursos 
@@ -108,7 +111,7 @@ public class Controller extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("home.jsp"); 
 			dispatcher.forward(request, response); 
 			
-		}else if(op.equals("addtelefono")){
+		}/*else if(op.equals("addtelefono")){
 			nombre = request.getParameter("nombre"); 
 			curso = request.getParameter("curso"); 
 			//rellenar Telefono 

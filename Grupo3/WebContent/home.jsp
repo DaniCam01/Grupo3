@@ -48,9 +48,7 @@
                         </form>
                     </li>
                     
-                    <li class="nav-item">
-                    
-                    	
+                    <li class="nav-item">    	
                         <div class="form-group px-5 mt-2">
                             <form action="Controller?op=traeralumnos" method="POST">
                                   <div class="form-group row">
@@ -81,13 +79,14 @@
         
     	<% ArrayList<Alumno> listaalumnos = (ArrayList<Alumno>)request.getAttribute("listaalumnos"); 
         	if (listaalumnos!=null) {
-        		
+        		int count=0;
         		System.out.println(listaalumnos);
         %>
         <div class="row">
             <% 
         		for (Alumno alumno:listaalumnos){
         			 System.out.println("hola");
+        			 count++;
         	%>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
                 <div class="card px-1 py-1 border-0" style="background-color: #8eb0d6;">
@@ -95,7 +94,7 @@
                     <div class="col text-right">
                         <button type="button" class="btn openBtn" data-toggle="modal" data-target="#ModalEditarAlumno"><img class=""
                             src="img/edit.png" alt=""></button>
-                        <button type="button" class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno"><img class=""
+                        <button type="button" class="btn" data-toggle="modal" data-target="#ModalEliminarAlumno" data-whatever="<%=count %>"><img class=""
                             src="img/deluser.png" alt=""></button>
                     </div>
                     <div class="row card-body text-light">
@@ -131,9 +130,8 @@
             </div>
             <div class="col-md-4 py-3 px-4 font-weight-light">
                 Fernando Bastanchuri <br>
-                Víctor Bravo <br>
                 Daniel Camaño <br>
-                Jorge Cordero             
+                           
             </div>
             <div class="col-md-4 py-3 px-4 font-weight-light">
                 Aroa García <br>
@@ -154,6 +152,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 </body>
+
 <!-- Modal -->
 <div class="modal fade" id="ModalEliminarAlumno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -167,12 +166,6 @@
             <!-- Mediante el siguiente script puedo introducir el nombre del contacto a eliminar utilizando su posicion-->
             <div class="modal-body">
                 Desea eliminar a
-                <script>
-                        var modal = $(this)
-                        var parrafos = document.getElementsByTagName('h4');
-                        var contenido = parrafos[1].innerHTML; 
-                        document.write(contenido)  
-                </script>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -181,37 +174,52 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ModalAñadirAlumno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<script type="text/javascript">
+	function añadiralumno()
+	{
+		var nombre = document.getElementById('nombreAl').value;
+		var dni = document.getElementById('dni').value;
+		var curso = document.getElementById('cursoAl').value;
+
+		document.registro.nombreAdd.value = nombre;
+		document.registro.dniAdd.value = dni;
+		document.registro.cursoAdd.value = curso;
+		document.registro.addAlumno.value = 'Controller?op=addalumno';
+		document.registro.addAlumno.onchange = 'this.form.submit()';
+	}
+</script>
+
+<div class="modal fade" id="ModalAñadirAlumno" tabindex="-1" role="dialog" aria-labelledby="AddUserLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalAñadirAlumno">Añadir alumno</h5>
+                <h5 class="modal-title" id="AddUserLabel">Añadir alumno</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
-            <div class="modal-body">
-                <form>
+        <form action="Controller" method="POST">
+            <div class="modal-body">             
                     <div class="form-group">
-                        <label for="nombre" name="nombre" id="nombre" class="col-form-label">Nombre completo:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <label for="nombreAl" class="col-form-label">Nombre:</label>
+                        <input class="form-control" type="text" id="nombreAdd" name="nombreAdd" required="required">
                     </div>
                     <div class="form-group">
                         <label for="dni" class="col-form-label">DNI:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input type="text" class="form-control" id="dniAdd" name="dniAdd" required="required">
                     </div>
                     <div class="form-group">
                         <label for="curso" class="col-form-label">Curso:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input type="text" class="form-control" id="cursoAdd" name="cursoAdd" required="required">
                     </div>
-                </form>
             </div>
+            <input type="hidden" name="op" value="addalumno">
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Aceptar</button>
+                
+                <button class="btn btn-primary" type="submit" >Aceptar</button>
             </div>
+         </form>
         </div>
     </div>
 </div>
@@ -225,10 +233,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
-
-            
-            
+            </div>       
             <div class="modal-body">         
                 <form>
                     <div class="form-group">
@@ -261,8 +266,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="ModalAñadirCurso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="ModalAñadirCurso" tabindex="-1" role="dialog" aria-labelledby="AddCursoLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -271,18 +275,20 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form action="Controller" method="POST">
+            <div class="modal-body">            
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Año:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <label for="curso" class="col-form-label">Año:</label>
+                        <input type="text" class="form-control" id="cursoA" name="cursoA" required="required">
                     </div>
-                </form>
+                
             </div>
+            <input type="hidden" name="op" value="addcurso">
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Añadir</button>
+                <button class="btn btn-primary" type="submit" >Añadir</button>
             </div>
+        </form>
         </div>
     </div>
 </div>
