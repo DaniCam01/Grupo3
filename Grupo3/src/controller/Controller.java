@@ -61,7 +61,7 @@ public class Controller extends HttpServlet {
 		int exito;
 
 		if (op.equals("inicio")) {
-			listaalumnos = daoalumno.getAlumnos("", "");
+			listaalumnos = daoalumno.getAlumnos("%", "%");
 			listacursos= daocurso.getCursos();
 
 			session.setAttribute("listaalumnos", listaalumnos);
@@ -72,9 +72,9 @@ public class Controller extends HttpServlet {
 		}else if (op.equals("traeralumnos")) { 
 			//pedir curso y contenido de la barra del buscador 
 			curso = request.getParameter("curso"); 
-			nombre = "%";//request.getParameter("nombre"); 
+			nombre = request.getParameter("nombre"); 
 			//lista de alumnos 
-			listaalumnos = daoalumno.getAlumnos(curso, ""); 
+			listaalumnos = daoalumno.getAlumnos(curso, nombre); 
 			request.setAttribute("listaalumnos", listaalumnos); 
 			dispatcher = request.getRequestDispatcher("home.jsp"); 
 			dispatcher.forward(request, response); 
@@ -153,7 +153,7 @@ public class Controller extends HttpServlet {
 			if(exito!=-1){
 				listaalumnos = daoalumno.getAlumnos(curso, nombre); 
 				request.setAttribute("listaalumnos", listaalumnos); 
-				dispatcher = request.getRequestDispatcher("index.jsp"); 
+				dispatcher = request.getRequestDispatcher("home.jsp"); 
 				dispatcher.forward(request, response); 
 			}
 			

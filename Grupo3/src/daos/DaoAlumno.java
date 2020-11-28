@@ -17,21 +17,24 @@ public class DaoAlumno {
 
 	@SuppressWarnings("resource")
 	public ArrayList<Alumno> getAlumnos(String curso, String nombre){
-		ResultSet rs, rse, rst;
+		ResultSet rs;
 		ArrayList<Alumno> lista = new ArrayList<Alumno>();
 		ArrayList<Telefono> listaTelefonos;
 		ArrayList<Email> listaEmails;
 		Curso cursoAlumno;
+		Telefono telefono;
+		Alumno alumno;
+		Email email;
 		
 		Connection con = Conexion.conecta();
-		Statement st, stt, ste;
+		Statement st;
 		try {
 			st = con.createStatement();
-			String ordenSql = "select * from alumno where nombre like '%"+nombre+"%' and curso like '%"+curso+"%'";
+			String ordenSql = "SELECT dni , nombre , curso from alumno where nombre like '%"+nombre+"%' and curso like '%"+curso+"%'";
 			rs = st.executeQuery(ordenSql);
-
+			
 			while (rs.next()) {	
-				Alumno alumno = new Alumno();
+				alumno = new Alumno();
 				listaTelefonos = new ArrayList<Telefono>();
 				listaEmails = new ArrayList<Email>();
 				
@@ -41,46 +44,83 @@ public class DaoAlumno {
 				
 				
 				//Telefonos
-				stt = con.createStatement();
-				ordenSql = "select * from telefono where dni = '"+alumno.getDni()+"'";
-				rst = st.executeQuery(ordenSql);
-				while (rst.next()) {
-					Telefono telefono = new Telefono();
-					telefono.setDni(alumno.getDni());
-					telefono.setTlf(rst.getNString("tlf"));
-					listaTelefonos.add(telefono);
-				}
-				rst.close();
-				stt.close();
+				listaTelefonos = obtenerTelefonoAlumno(alumno.getDni());
 				alumno.setTelefonos(listaTelefonos);
 				
 				
-				//Emails
-				ste = con.createStatement();
-				ordenSql = "select * from emilio where dni = '"+alumno.getDni()+"'";
-				rse = st.executeQuery(ordenSql);
-				while (rse.next()) {
-					Email email = new Email();
-					email.setDni(alumno.getDni());
-					email.setEmail(rse.getNString("email"));
-					listaEmails.add(email);
-				}
-				rse.close();
-				ste.close();
+				listaEmails = obtenerEmailAlumno(alumno.getDni());
 				alumno.setEmails(listaEmails);
 				
+				System.out.println(alumno);
 				lista.add(alumno);
 			}
 			rs.close();
 			st.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out
-					.println("Error al acceder a la BDs Alumno: " + e.getMessage());
+			System.out.println("Error al acceder a la BDs Alumno: " + e.getMessage());
 		}
 		return lista;
 	}
 	
+	public ArrayList<Email> obtenerEmailAlumno(String dni)
+	{
+		ResultSet rs;
+		ArrayList<Email> lista = new ArrayList<Email>();
+
+		Connection con = Conexion.conecta();
+		Statement st;
+		try {
+			st = con.createStatement();
+			String ordenSql = "SELECT dni, email from emilio where dni ='"+dni+"'";
+			rs = st.executeQuery(ordenSql);
+
+			while (rs.next()) {
+				Email email = new Email();
+				email.setDni(rs.getString("dni"));
+				email.setEmail(rs.getString("email"));
+
+				lista.add(email);
+			}
+			rs.close();
+			st.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out
+					.println("Error al acceder a la BDs: " + e.getMessage());
+		}
+		return lista;
+	}
+	
+		public ArrayList<Telefono> obtenerTelefonoAlumno(String dni)
+		{
+			ResultSet rs;
+			ArrayList<Telefono> lista = new ArrayList<Telefono>();
+
+			Connection con = Conexion.conecta();
+			Statement st;
+			try {
+				st = con.createStatement();
+				String ordenSql = "SELECT dni, tlf from telefono where dni ='"+dni+"'";
+				rs = st.executeQuery(ordenSql);
+
+				while (rs.next()) {
+					Telefono telefono = new Telefono();
+					telefono.setDni(rs.getString("dni"));
+					telefono.setTlf(rs.getString("tlf"));
+
+					lista.add(telefono);
+				}
+				rs.close();
+				st.close();
+				con.close();
+			} catch (SQLException e) {
+				System.out
+						.println("Error al acceder a la BDs: " + e.getMessage());
+			}
+			return lista;
+		}
+		
 	//Insert
 		public void insertaAlumno(Alumno alumno) {
 			Connection con = new Conexion().conecta();
