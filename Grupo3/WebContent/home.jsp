@@ -83,9 +83,6 @@
     	<% ArrayList<Alumno> listaalumnos = (ArrayList<Alumno>)request.getAttribute("listaalumnos"); 
         	if (listaalumnos!=null) {
         		
-				for(Alumno alumno : listaalumnos){
-        			alumno.toString();
-        		}
         %>
         <div class="row">
             <% 
