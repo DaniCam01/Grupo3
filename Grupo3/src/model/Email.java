@@ -25,7 +25,7 @@ public class Email {
 	}
 	@Override
 	public String toString() {
-		return "Email [email=" + email + ", dni=" + dni + "]";
+		return "Email [email=" + email + "]";
 	}
 	
 	

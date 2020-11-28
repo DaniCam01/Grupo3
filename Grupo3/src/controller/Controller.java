@@ -111,7 +111,7 @@ public class Controller extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("home.jsp"); 
 			dispatcher.forward(request, response); 
 			
-		}/*else if(op.equals("addtelefono")){
+		}else if(op.equals("addtelefono")){
 			nombre = request.getParameter("nombre"); 
 			curso = request.getParameter("curso"); 
 			//rellenar Telefono 
@@ -198,7 +198,7 @@ public class Controller extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("home.jsp"); 
 				dispatcher.forward(request, response);
 			}
-		}*/
+		}
 	}
 
 

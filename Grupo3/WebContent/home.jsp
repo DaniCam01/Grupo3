@@ -100,7 +100,7 @@
                     <div class="row card-body text-light">
                         <div class="col-12">
                             <h4 class="card-title" id="nombre"><%=String.valueOf(alumno.getNombre()) %></h4>
-                            Mail:<button class="btn openBtn" data-toggle="modal" data-target="#ModalAñadirMail"><img class=""
+                            Mail:<button class="btn openBtn" data-toggle="modal" data-target="#ModalAñadirMail" data-whatever="<%=alumno%>"><img class=""
                                 src="img/addemail.png" alt=""></button>
                             <p class="card-text"><%=String.valueOf(alumno.getEmails()) %><button  class="btn" data-toggle="modal" data-target="#ModalEliminarMail"><img class=""
                                 src="img/delemail.png" alt=""></button>
@@ -109,7 +109,7 @@
                                 src="img/addphone.png" alt=""></button>
                             <p class="card-text"><%=String.valueOf(alumno.getTelefonos()) %><button  class="btn" data-toggle="modal" data-target="#ModalEliminarTelefono"><img class=""
                                 src="img/delphone.png" alt=""></button></p>
-                            
+                            <p class="card-text">DNI <%=String.valueOf(alumno.getDni()) %></p>
                             <p class="card-text">Curso <%=String.valueOf(alumno.getCurso().getCurso()) %></p>
                         </div>
                         
@@ -193,7 +193,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="AddUserLabel">Añadir alumno</h5>
+                <h5 class="modal-title" id="AddCursoLabel">Añadir alumno</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -292,8 +292,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ModalAñadirMail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="ModalAñadirMail" tabindex="-1" role="dialog" aria-labelledby="AddMailLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -302,18 +301,31 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <form action="Controller" method="POST">
             <div class="modal-body">
-                <form>
+               		<div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Curso:</label>
+                        <input type="text" class="form-control" id="curso" name="curso" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">DNI:</label>
+                        <input type="text" class="form-control" id="dni" name="dni" required="required">
+                    </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">email:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input type="text" class="form-control" id="email" name="email" required="required">
                     </div>
-                </form>
             </div>
+            <input type="hidden" name="op" value="addemail">
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Añadir</button>
+                <button class="btn btn-primary" type="submit">Añadir</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
