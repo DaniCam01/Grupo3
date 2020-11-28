@@ -18,6 +18,7 @@ import daos.DaoTelefono;
 import daos.DaoEmail;
 import model.Alumno;
 import model.Curso;
+
 import model.Telefono;
 import model.Email;
 
@@ -95,7 +96,7 @@ public class Controller extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("home.jsp"); 
 			dispatcher.forward(request, response); 
  
-		}else if(op.equals("addcurso")){ 
+		}/*else if(op.equals("addcurso")){ 
 			//curso rellenado 
 			curso = request.getParameter("curso"); 
 			//añadirlo al objeto curso 
@@ -194,7 +195,7 @@ public class Controller extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("home.jsp"); 
 				dispatcher.forward(request, response);
 			}
-		}
+		}*/
 	}
 
 

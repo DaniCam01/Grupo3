@@ -56,7 +56,6 @@
                                   <div class="form-group row">
                                     <select class="form-control" name="curso" id="curso" onchange="this.form.submit()">
                                       <option value="%" readonly>SELECCIONE CURSO</option> 
-                                      <option value="%" >Todos</option>  
                                          <% for (Curso curso:listacursos){%>
 		                    			<option value="<%=curso.getCurso() %>"><%=curso.getCurso() %></option>
 		                    			<%}
@@ -87,7 +86,7 @@
         %>
         <div class="row">
             <% 
-        		for (int i=0; i<listaalumnos.size(); i++){
+        		for (Alumno alumno:listaalumnos){
         			 System.out.println("hola");
         	%>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
@@ -101,18 +100,18 @@
                     </div>
                     <div class="row card-body text-light">
                         <div class="col-12">
-                            <h4 class="card-title" id="nombre">Pedro Garcia Nobillo</h4>
+                            <h4 class="card-title" id="nombre"><%=String.valueOf(alumno.getNombre()) %></h4>
                             Mail:<button class="btn openBtn" data-toggle="modal" data-target="#ModalAñadirMail"><img class=""
                                 src="img/addemail.png" alt=""></button>
-                            <p class="card-text">pedrogn@gmail.com<button  class="btn" data-toggle="modal" data-target="#ModalEliminarMail"><img class=""
+                            <p class="card-text"><%=String.valueOf(alumno.getEmails()) %><button  class="btn" data-toggle="modal" data-target="#ModalEliminarMail"><img class=""
                                 src="img/delemail.png" alt=""></button>
                             </p>
                             Telefono:<button class="btn openBtn" data-toggle="modal" data-target="#ModalAñadirTelefono"><img class=""
                                 src="img/addphone.png" alt=""></button>
-                            <p class="card-text">654321698<button  class="btn" data-toggle="modal" data-target="#ModalEliminarTelefono"><img class=""
+                            <p class="card-text"><%=String.valueOf(alumno.getTelefonos()) %><button  class="btn" data-toggle="modal" data-target="#ModalEliminarTelefono"><img class=""
                                 src="img/delphone.png" alt=""></button></p>
                             
-                            <p class="card-text">Curso: 2019-2021</p>
+                            <p class="card-text">Curso <%=String.valueOf(alumno.getCurso().getCurso()) %></p>
                         </div>
                         
                     </div>
@@ -196,19 +195,11 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="nombre" class="col-form-label">Nombre completo:</label>
+                        <label for="nombre" name="nombre" id="nombre" class="col-form-label">Nombre completo:</label>
                         <input type="text" class="form-control" id="recipient-name">
                     </div>
                     <div class="form-group">
                         <label for="dni" class="col-form-label">DNI:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="col-form-label">Email:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono" class="col-form-label">Telefono:</label>
                         <input type="text" class="form-control" id="recipient-name">
                     </div>
                     <div class="form-group">
