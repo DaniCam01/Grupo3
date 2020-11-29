@@ -20,7 +20,15 @@
 
 <%
   	ArrayList<Curso> listacursos = (ArrayList<Curso>) session.getAttribute("listacursos");
+	String curso = request.getParameter("curso");
 %>
+<script language="javascript" type="text/javascript">
+	function poncombo(combo, valor) {
+		for (i = 0; i < combo.options.length; i++)
+			if (combo.options[i].value == valor)
+				combo.options[i].selected = true;
+	}
+</script>
 
 <body>
 	<header>
@@ -50,18 +58,20 @@
                     
                     <li class="nav-item">    	
                         <div class="form-group px-5 mt-2">
-                            <form action="Controller?op=traeralumnos" method="POST">
+                            <form action="Controller" method="POST" name="fcursos">
                                   <div class="form-group row">
                                     <select class="form-control" name="curso" id="curso" onchange="this.form.submit()">
                                       <option value="%" readonly>SELECCIONE CURSO</option> 
-                                         <% for (Curso curso:listacursos){%>
-		                    			<option value="<%=curso.getCurso() %>"><%=curso.getCurso() %></option>
+                                      <option value="%">Todos</option>
+                                         <% for (Curso micurso:listacursos){%>
+		                    			<option value="<%=micurso.getCurso() %>"><%=micurso.getCurso() %></option>
 		                    			<%}
 		                   				%> 
                                     </select>
                                 </div>
-                                 <input type="hidden" name="op" value="Controller?op=traeralumnos">
+                                 <input type="hidden" name="op" value="traeralumnos">
                             </form>
+                            <script type="text/javascript"> poncombo(document.fcursos.curso,"<%=request.getParameter("curso")%>");</script>
                         </div>
                         
                         
@@ -121,7 +131,9 @@
             <%}%>
             
 	</div>
+	
 	<%} %>
+	</div>
     <footer>
         <div class="row mx-auto mt-4 text-white" style="width: 1024px; background-color: #005D9D;">
             <div class="col-md-4 py-4 px-4 h3">
@@ -139,6 +151,7 @@
                 Juan Gómez
             </div>
         </div>
+    
     </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -292,6 +305,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript"> poncombo(document.adMail.curso,"<%=request.getParameter("curso")%>");</script>
 <div class="modal fade" id="ModalAñadirMail" tabindex="-1" role="dialog" aria-labelledby="AddMailLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -301,7 +315,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="Controller" method="POST">
+            <form action="Controller" method="POST" name="adMail">
             <div class="modal-body">
                		<div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nombre:</label>
