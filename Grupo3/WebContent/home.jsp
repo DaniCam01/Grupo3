@@ -142,10 +142,12 @@
             </div>
             <div class="col-md-4 py-3 px-4 font-weight-light">
                 Fernando Bastanchuri <br>
+                Víctor Bravo <br>
                 Daniel Camaño <br>
                            
             </div>
             <div class="col-md-4 py-3 px-4 font-weight-light">
+                Jorge Cordero <br>
                 Aroa García <br>
                 Sara Gil <br>
                 Juan Gómez
